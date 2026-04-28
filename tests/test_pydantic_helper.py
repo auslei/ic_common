@@ -35,11 +35,11 @@ class TestBuildStructuredPrompt:
 
     def test_includes_json_only_instruction(self):
         result = build_structured_prompt("test", PersonSchema)
-        assert "ONLY with a single valid JSON object" in result
+        assert "YOU MUST OUTPUT A COMPLETED JSON DATA INSTANCE" in result
 
     def test_no_code_block_instruction(self):
         result = build_structured_prompt("test", PersonSchema)
-        assert "Do not wrap the JSON in code blocks" in result
+        assert "Do not wrap the JSON in markdown code blocks" in result
 
 
 class TestParseStructuredOutput:

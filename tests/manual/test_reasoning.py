@@ -5,7 +5,7 @@ from src.common.logger import get_logger
 
 logger = get_logger("reasoning_test")
 
-def test_reasoning(provider: str, model_name: str):
+def test_reasoning(provider: str = "ollama", model_name: str = "qwen2.5:14b"):
     logger.info(f"--- Testing Reasoning Toggles for {provider}/{model_name} ---")
 
     question = "If I have 3 apples and eat 1, how many do I have? Explain your reasoning briefly."

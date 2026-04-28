@@ -119,14 +119,14 @@ def render_markdown_to_html(markdown_text: str, title: str = "InvestorIQ Documen
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{title}}</title>
+    <title>{title}</title>
     <style>
-{{css}}
+{css}
     </style>
 </head>
 <body>
     <div class="markdown-body">
-{{html_snippet}}
+{html_snippet}
     </div>
 </body>
 </html>
