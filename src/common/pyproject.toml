@@ -1,0 +1,41 @@
+[project]
+name = "ic-common"
+version = "0.1.0"
+description = "Common utilities and core abstractions for ic-projects"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115.0",
+    "httpx>=0.27.0",
+    "langchain-core>=1.2.14",
+    "langchain-community>=0.4.1",
+    "langchain-ollama>=0.1.0",
+    "langchain-openai>=0.1.0",
+    "langchain-deepseek>=0.1.0",
+    "markdown2>=2.4.10",
+    "pydantic>=2.0.0",
+    "python-dotenv>=1.0.0",
+    "pyyaml>=6.0.1",
+    "requests>=2.31.0",
+    "rich>=14.0.0",
+]
+
+[project.optional-dependencies]
+ml = [
+    "torch>=2.0.0",
+]
+media = [
+    "yt-dlp>=2024.0.0",
+]
+pdf = [
+    "pypandoc>=1.13",
+]
+all = [
+    "ic-common[ml,media,pdf]",
+]
+
+[tool.uv]
+managed = true
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
