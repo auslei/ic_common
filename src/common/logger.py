@@ -5,6 +5,7 @@ This logger can be used across all projects (root, ocr, transcriber).
 import logging
 import os
 import sys
+import asyncio
 from logging import Logger, FileHandler
 from datetime import datetime
 from pathlib import Path
@@ -24,6 +25,33 @@ ICON_MAP = {
     "default": "🤖",
 }
 
+
+class MemoryHandler(logging.Handler):
+    """A thread-safe logging handler that keeps the last N log records in memory."""
+    def __init__(self, capacity: int = 100):
+        super().__init__()
+        self.capacity = capacity
+        self.buffer: list[str] = []
+        self._lock = asyncio.Lock() if asyncio.get_event_loop().is_running() else None
+
+    def emit(self, record):
+        try:
+            msg = self.format(record)
+            self.buffer.append(msg)
+            if len(self.buffer) > self.capacity:
+                self.buffer.pop(0)
+        except Exception:
+            self.handleError(record)
+
+    def get_logs(self) -> list[str]:
+        return list(self.buffer)
+
+    def clear(self):
+        self.buffer.clear()
+
+# Global log buffer for UI/API display
+log_buffer = MemoryHandler()
+log_buffer.setFormatter(logging.Formatter('%(asctime)s - %(message)s', datefmt='%H:%M:%S'))
 
 def get_logger(
     name: str = "default",
