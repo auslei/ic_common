@@ -142,7 +142,7 @@ class EndpointFilter(logging.Filter):
         # For uvicorn access logs, the message is the request string
         return record.getMessage().find(self.path) == -1
 
-def suppress_http_logs(paths: list[str] = ["/health", "/jobs", "/api/admin/jobs", "/api/admin/all_jobs"]):
+def suppress_http_logs(paths: list[str] = ["/health", "/logs", "/jobs", "/api/admin/jobs", "/api/admin/all_jobs"]):
     """Suppress access logs for specific HTTP paths in uvicorn."""
     uvicorn_logger = logging.getLogger("uvicorn.access")
     for path in paths:
