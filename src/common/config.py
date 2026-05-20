@@ -82,8 +82,11 @@ class ExtractionConfig(BaseModel):
     transcribe_model: str
     ocr_dpi: int
     pdf_process_method: str
-    language: str
     ocr_stream: bool = Field(default=False)
+    enable_llm_classification: bool = Field(default=False)
+    classification_categories: list[str] = Field(default_factory=list)
+    classification_sub_categories: list[str] = Field(default_factory=list)
+    llm: Optional[LLMConfig] = Field(default=None)
 
 class AnalyticsPipelineConfig(BaseModel):
     """Shared settings for the field_extraction → project_score pipeline."""
