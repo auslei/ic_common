@@ -77,17 +77,6 @@ class QdrantConfig(BaseModel):
     location: Optional[str] = Field(default=None)  # In-memory storage (":memory:")
     api_key: Optional[str] = Field(default=None)  # Optional API authentication
 
-class ExtractionConfig(BaseModel):
-    ocr_model: str
-    transcribe_model: str
-    ocr_dpi: int
-    pdf_process_method: str
-    ocr_stream: bool = Field(default=False)
-    enable_llm_classification: bool = Field(default=False)
-    classification_categories: list[str] = Field(default_factory=list)
-    classification_sub_categories: list[str] = Field(default_factory=list)
-    llm: Optional[LLMConfig] = Field(default=None)
-
 class AnalyticsPipelineConfig(BaseModel):
     """Shared settings for the field_extraction → project_score pipeline."""
     db_path: str = Field(default="data/scorecard.db")
@@ -137,7 +126,6 @@ class AppConfig(BaseModel):
     chat: ChatConfig = Field(default_factory=ChatConfig)
     tenants: List[UserConfig] = Field(default_factory=list, alias="users_legacy")
     
-    extraction: Optional[ExtractionConfig] = Field(default=None)
     analytics_pipeline: AnalyticsPipelineConfig = Field(default_factory=AnalyticsPipelineConfig)
     # Legacy keys — populated from config.yaml if present, for backward compatibility
     scorecard: Optional[AnalyticsPipelineConfig] = Field(default=None)
